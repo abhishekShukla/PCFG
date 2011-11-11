@@ -1,0 +1,11 @@
+To get the parse tree:
+
+nohup java -Xms1g -Xmx1g -cp stanford-parser.jar edu.stanford.nlp.parser.lexparser.LexicalizedParser englishFactored.ser.gz ../test/test.txt > ../test/test-train.txt 2> ../test/test-log.txt
+
+To train the parser: 
+
+nohup java -cp stanford-parser.jar -Xms1g -Xmx1g edu.stanford.nlp.parser.lexparser.LexicalizedParser -PCFG -vMarkov 1 -uwm 0 -headFinder edu.stanford.nlp.trees.LeftHeadFinder -train ../test/test-train.txt -saveToSerializedFile test.ser.gz
+
+
+
+
