@@ -85,27 +85,13 @@ class Parser // start of the Parser class
         	
         	while((sentence = br.readLine())!= null){
 				
-        		
-    			System.out.println ("\n\n\n\nORIGINAL:\n\n" + sentence); 
-    			String [] splits ;
-    			splits = sentence.split("[\\s][.]");
-    			//System.out.println(splits.length);
-    			
-    				int i = 0;
-	    			while (i < splits.length)  
-	    			{ 
-	    				// print sentence:
-	    				//System.out.println ("\n\n\n\n sentence is:\n\n" + splits[i]); 
-
-	    				Double cnnScore = cnn.parser(splits[i], "/home/abhishek/Nlp/elections/cnn_elections_train/cnnElections.ser.gz");
-	    				cnnTotalPCFGScore += cnnScore;
-	    				
-	    				Double foxScore = fox.parser(splits[i], "/home/abhishek/Nlp/elections/fox_elections_train/foxElectionsAll.ser.gz");
-	    				foxTotalPCFGScore += foxScore;
-	    				
-	    				i++;
-	    			} 
-    			
+        		//System.out.println ("\n\n\n\nORIGINAL:\n\n" + sentence);
+        		Double cnnScore = cnn.parser(sentence, "/home/abhishek/Nlp/elections/cnn_elections_train/cnnElections.ser.gz");
+				cnnTotalPCFGScore += cnnScore;
+				
+				Double foxScore = fox.parser(sentence, "/home/abhishek/Nlp/elections/fox_elections_train/foxElectionsAll.ser.gz");
+				foxTotalPCFGScore += foxScore;
+			
     			}
         		resultWrite(listOfFiles[j].getName(), cnnTotalPCFGScore, foxTotalPCFGScore, result);
 				dis.close(); // close input file
@@ -126,7 +112,7 @@ class Parser // start of the Parser class
 		System.out.println("\n\n\nSTART\n\n\n"); // print START
 		try 
 		{
-			folderRead("/home/abhishek/Nlp/elections/test");
+			folderRead("/home/abhishek/Nlp/elections/fox_elections_test");
 		}
 		catch (Exception e) // catch error if any
 		{ 
