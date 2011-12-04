@@ -22,9 +22,17 @@ sed -i 's/.../ /g' *.txt
 sed -i  's/\.\.\.//g' *.txt
 sed -i 's/$/ /g' *.txt
 
-java -cp stanford-parser.jar edu.stanford.nlp.process.DocumentPreprocessor 1235.txt > oneTokenizedSentencePerLine.txt
+nohup java -Xms2g -Xmx2g -cp stanford-parser.jar edu.stanford.nlp.process.DocumentPreprocessor ../elections/cnn_elections_train/trainFull/*.txt > cnn_DocPro.txt 2> cnn_DocPro-log.txt
+
+nohup java -Xms2g -Xmx2g -cp stanford-parser.jar edu.stanford.nlp.parser.lexparser.LexicalizedParser -retainTMPSubcategories -outputFormat "typedDependencies" englishPCFG.ser.gz 1100_1.txt > 1100_parsed.txt 2> 1100_log.txt
+
 bin/mallet train-classifier --input training.mallet --output-classifier ngram.classifier \ --trainer MaxEnt
 bin/mallet classify-dir --input msnbc_wt_mallet_testing --output - --classifier ngram.classifier
+
+
+
+
+
 
 
 
