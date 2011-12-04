@@ -2,6 +2,11 @@ To get the parse tree:
 
 nohup java -Xms1g -Xmx1g -cp stanford-parser.jar edu.stanford.nlp.parser.lexparser.LexicalizedParser englishFactored.ser.gz ../test/test.txt > ../test/test-train.txt 2> ../test/test-log.txt
 
+nohup java -Xms1g -Xmx1g -cp stanford-parser.jar edu.stanford.nlp.parser.lexparser.LexicalizedParser englishFactored.ser.gz ../cnn_elections/cnn_elections_train/train1/*.txt > ../cnn_elections/cnn_elections_train/elections1-train.txt 2> ../cnn_elections/cnn_elections_train/elections1-log.txt
+
+nohup java -Xms1g -Xmx1g -cp stanford-parser.jar edu.stanford.nlp.parser.lexparser.LexicalizedParser englishFactored.ser.gz ../cnn_elections/cnn_elections_train/train2/*.txt > ../cnn_elections/cnn_elections_train/elections2-train.txt 2> ../cnn_elections/cnn_elections_train/elections2-log.txt
+
+
 --Here the Lexicalized Parser class available in stanford-parser.jar is used to create the parsed tree of the sentences in xxxx.txt into xxxx-train.txt and the log file is created as xxxx-log.txt.
 
 To train the parser: 
@@ -9,6 +14,33 @@ To train the parser:
 nohup java -cp stanford-parser.jar -Xms1g -Xmx1g edu.stanford.nlp.parser.lexparser.LexicalizedParser -PCFG -vMarkov 1 -uwm 0 -headFinder edu.stanford.nlp.trees.LeftHeadFinder -train ../test/test-train.txt -saveToSerializedFile test.ser.gz
 
 --Here the Lexicalized parser available in stanford-parser.jar is used to create a trained PCFG xxxx.ser.gz by parsing through the earlier created xxxx-train.txt. I think this new PCFG created need not be created by training a single file. This can be trained by using a set of documents. I will explore that.
+
+sed i 's/--/-./g' *.txt
+sed -i 's/?/?./g' *.txt
+sed -i 's/!/!./g' *.txt
+sed -i 's/.../ /g' *.txt
+sed -i  's/\.\.\.//g' *.txt
+sed -i 's/$/ /g' *.txt
+
+java -cp stanford-parser.jar edu.stanford.nlp.process.DocumentPreprocessor 1235.txt > oneTokenizedSentencePerLine.txt
+bin/mallet train-classifier --input training.mallet --output-classifier ngram.classifier \ --trainer MaxEnt
+bin/mallet classify-dir --input msnbc_wt_mallet_testing --output - --classifier ngram.classifier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
