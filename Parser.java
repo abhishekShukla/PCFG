@@ -19,6 +19,7 @@ class PersonalParser {
 			List tokens = tf.getTokenizer(new StringReader(splitSentence)).tokenize();
 			parser.parse(tokens); // parse the tokens
 			Tree tree = parser.getBestParse(); // get the best parse tree
+			//tree.pennPrint();
 			score = parser.getPCFGScore();
 		}
 		catch (Exception e) {
@@ -79,16 +80,19 @@ class Parser // start of the Parser class
         	System.out.println("\nFile " + listOfFiles[j].getName());
         	DataInputStream dis = new DataInputStream(fis);
         	BufferedReader br = new BufferedReader(new InputStreamReader(dis));
-    
+        	
+        	
+        	
         	while((sentence = br.readLine())!= null){
 				
-    			//System.out.println ("\n\n\n\nORIGINAL:\n\n" + sentence); 
+        		
+    			System.out.println ("\n\n\n\nORIGINAL:\n\n" + sentence); 
     			String [] splits ;
-    			splits = sentence.split("[?!\\.]");
-    			//System.out.println(splits.length-1);
+    			splits = sentence.split("[\\s][.]");
+    			//System.out.println(splits.length);
     			
     				int i = 0;
-	    			while (i < splits.length-1)  
+	    			while (i < splits.length)  
 	    			{ 
 	    				// print sentence:
 	    				//System.out.println ("\n\n\n\n sentence is:\n\n" + splits[i]); 
@@ -122,7 +126,7 @@ class Parser // start of the Parser class
 		System.out.println("\n\n\nSTART\n\n\n"); // print START
 		try 
 		{
-			folderRead("/home/abhishek/Nlp/elections/cnn_elections_test");
+			folderRead("/home/abhishek/Nlp/elections/test");
 		}
 		catch (Exception e) // catch error if any
 		{ 
