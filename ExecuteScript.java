@@ -64,7 +64,7 @@ public class ExecuteScript {
                 String outputFolderName = args[1];
                 String stanfordParserDir = args[2];
                 
-                File folder = new File("/home/abhishek/Nlp/elections/fox/");
+                File folder = new File(inputFolerName);
                 File[] listOfFiles = folder.listFiles();
                 
 
